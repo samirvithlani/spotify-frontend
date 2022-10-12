@@ -15,6 +15,14 @@ export const ViewAllPlaylist = () => {
             setplaylists(res.data);
         });
     };
+
+    const removePlayList = async (id) => {
+        axios.delete(`http://localhost:8000/playlist/playlist/${id}`).then((res) => {
+            console.log(res);
+            fetchPlaylist();
+        });
+    }
+
     const removesongFromPlaylist = async (playlistid,id) => {
         
         var songs ={
@@ -48,10 +56,14 @@ export const ViewAllPlaylist = () => {
                 playlists.map((playlist,index)=>{   
                     return(
                         <tr>
+                            
                             <th scope="row">{index+1}</th>
                             
                             <td>{playlist.name}</td>
                             <td>{playlist.artist}</td>
+                            <td>
+                                <button className="btn btn-danger" onClick={()=>{removePlayList(playlist._id)}}>DELETE PLAYL-LIST</button>
+                            </td>
                             <td>
                             <ul>
                                 {
